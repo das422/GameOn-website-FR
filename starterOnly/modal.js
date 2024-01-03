@@ -26,6 +26,8 @@ function launchModal() {
 close.addEventListener("click", closeModal);
 function closeModal() {
   modalbg.style.display = "none";
+  e.preventDefault()
+
 }
 
 
@@ -47,16 +49,22 @@ const loc5 = document.getElementById("location5");
 const loc6 = document.getElementById("location6");
 const error = document.getElementById("errorMessage");
 
-function validate( firstname) {
-  
-  if (firstname === '' && firstname.length > 2)
-  return true;
-}  {
-  return false
-  error.textContent = "notvalid";} 
 
-  console.log(firstname = 'bonjour')
+
+
   
+// validation
+
+button.addEventListener("submit", (validate) => {
+
+  validate.preventDefault()
+  if(!firstname.validity.valid) {
+    error.innerHTML = "pas valide"
+    error.className = "error";
+  }
+
+
+})
 
 
 
