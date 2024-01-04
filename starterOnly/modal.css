@@ -200,6 +200,7 @@ input {
   border: 0.8px solid #ccc;
   outline: none;
 }
+
 .text-control {
   margin: 0;
   padding: 8px;
@@ -473,6 +474,13 @@ input[data-error]::after {
 .hero-section > .btn-signup {
   display: none;
 }
+
+.error-msg{
+margin-bottom: 0.25rem;
+font-size: 0.8rem;
+color: #FE142F;
+}
+
 footer {
   padding-left: 2vw;
   padding-right: 2vw;
