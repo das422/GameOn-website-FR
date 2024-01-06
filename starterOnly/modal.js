@@ -49,6 +49,7 @@ const loc3 = document.getElementById("location3");
 const loc4 = document.getElementById("location4");
 const loc5 = document.getElementById("location5");
 const loc6 = document.getElementById("location6");
+// const location = document.querySelectorAll("input[class=checkbox-input]")
 
 
 // form.addEventListener("submit", (e) =>validate (e));
@@ -63,13 +64,13 @@ const loc6 = document.getElementById("location6");
 //   return true;
 // }
 
-// else
-//   errorfirst.classList.remove("visible");
-// errorfirst.textContent = "";
-// return false;
+// // else
+// //   errorfirst.classList.remove("visible");
+// // errorfirst.textContent = "";
+// // return false;
 
 
-// }
+// // }
 
   // error message for required fields
 const errorMessage = {
@@ -77,10 +78,11 @@ const errorMessage = {
   email: "Veuillez entrer une adresse e-mail valide",
   birthdate: "Vous devez entrer votre date de naissance.",
   terms: "Vous devez vérifier que vous acceptez les termes et conditions.",
-  location: "Vous devez choisir une option.",
+  cities: "Vous devez choisir une option.",
+  quantity :"Vueillez entrer une valeur numerique comprise entre 0 et 99",
 }
 
-// RegEx for date and email
+// // RegEx for date and email
 function isEmail(email) {
 	return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 }
@@ -100,12 +102,16 @@ function checkFields() {
   const emailValue = eMail.value.trim();
   const birthDateValue = birthDate.value.trim();
   const quantitycompetitionValue = quantitycompetition.value.trim();
-  const loc1Value = loc1.value.trim();
-  const loc2Value = loc2.value.trim();
-  const loc3Value = loc3.value.trim();
-  const loc4Value = loc4.value.trim();
-  const loc5Value = loc5.value.trim();
-  const loc6Value = loc6.value.trim();
+  // const conditionschecked = ;
+  // const citycheck =  ;
+  // const loc1Value = loc1.value.trim();
+  // const loc2Value = loc2.value.trim();
+  // const loc3Value = loc3.value.trim();
+  // const loc4Value = loc4.value.trim();
+  // const loc5Value = loc5.value.trim();
+  // const loc6Value = loc6.value.trim();
+
+
 
 
   // firstname check
@@ -115,6 +121,9 @@ function checkFields() {
   else {
     isValid(firstname);
   }
+
+
+
 
 // lastname check
   if (lastnameValue.toString().length < 2) {
@@ -135,6 +144,26 @@ function checkFields() {
     isValid(eMail);
   }
 
+// Birthday check
+if(birthDateValue ==""){
+  setErrorMessagefor(birthDate, errorMessage.birthdate);
+}else{
+  isValid(birthDate);
+}
+
+// quantityTournament check
+  if(quantitycompetitionValue.toString().length < 0 || quantitycompetitionValue.toString().length > 99 || quantitycompetitionValue ==='' ){
+    setErrorMessagefor(quantitycompetition, errorMessage.quantity);
+  } else{
+    isValid(quantitycompetition);
+  }
+
+
+// if(!conditionschecked.checked){
+//   setErrorMessagefor()
+// }
+
+
 }
 
 
@@ -144,10 +173,10 @@ function checkFields() {
 
 
 
-// error and succes message function
+// // error and succes message function
 function setErrorMessagefor(input, message) {
   const formData = input.parentElement;
-  const error = formData.querySelector('.error-msg');
+  const error = formData.querySelector(".error-msg");
   
   formData.className = 'formData error';
   error.textContent = message;
@@ -155,10 +184,26 @@ function setErrorMessagefor(input, message) {
 
 function isValid(input) {
   const formData = input.parentElement;
-  const error = formData.querySelector('.error-msg');
+  const error = formData.querySelector(".error-msg");
   formData.className = 'formData success';
   error.textContent = "";
 
+}
+
+function iscitychecked(){
+  let confirmed = false;
+  const radio = formData.querySelectorALL(".checkbox-input");
+  let i = 0;
+  while(!confirmed && i< radio.length){
+    if(radio[i].checked) 
+    checked = true;
+    i++;
+  }
+
+  if(!confirmed)
+    setErrorMessagefor(radio, errorMessage.cities);
+  return confirmed;
+  
 }
 // check if field valid
 
@@ -174,8 +219,11 @@ function isValid(input) {
 
 
 // validation
-
-
+const firstnamevalid = isValid(firstname);
+const lastnameValid = isValid(lastname);
+const birthDateValid = isValid(birthDate);
+const emailValid = isValid(eMail);
+const quantitycompetitionValid = isValid(quantitycompetition);
 
 
 
