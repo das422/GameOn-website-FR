@@ -139,11 +139,12 @@ if(birthDateValue ==""){
   if(!btnSelected()){
 successField = false
   }
+
 btnSelected()
 
-console.log(successField)
+
 if(successField){
-  Validate()
+  Validate(e)
 }
 }
 
@@ -152,7 +153,7 @@ if(successField){
 
 
 
-console.log(form)
+
 
  // error and succes message function
 function setErrorMessagefor(input, message) {
@@ -183,10 +184,11 @@ function btnSelected(){
     }
   })
   if(cityselected ==''){
-    setErrorMessagefor(document.getElementById("location1"),errorMessage.cities)
+    setErrorMessagefor(document.getElementById("location6"),errorMessage.cities)
     return false
   }
 return true
+
 }
 
 
@@ -270,10 +272,3 @@ return true
 
 
 
-function calc(){
-  let test =1 + 1
-  return test
-  
-  
-}
-console.log(calc())
