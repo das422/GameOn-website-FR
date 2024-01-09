@@ -118,34 +118,41 @@ function checkFields() {
     isValid(eMail);
   }
 
-// Birthday check
-if(birthDateValue ==""){
-  setErrorMessagefor(birthDate, errorMessage.birthdate);
-  successField = false;
-}else{
-  isValid(birthDate);
-}
+  // Birthday check
+  if(birthDateValue ==""){
+    setErrorMessagefor(birthDate, errorMessage.birthdate);
+    successField = false;
+  }
+  else{
+    isValid(birthDate);
+  }
 
-// quantityTournament check
+  // quantityTournament check
   if(quantitycompetitionValue.toString().length < 0 || quantitycompetitionValue.toString().length > 99 || quantitycompetitionValue ==='' ){
     setErrorMessagefor(quantitycompetition, errorMessage.quantity);
     successField = false;
-  } else{
+  }
+  else{
     isValid(quantitycompetition);
 
   }
 
+btnSelected()
 
   if(!btnSelected()){
 successField = false
   }
 
-btnSelected()
+
+console.log(successField)
 
 
-if(successField){
-  Validate(e)
-}
+
+
+
+
+
+
 }
 
 
@@ -164,7 +171,7 @@ function setErrorMessagefor(input, message) {
   error.textContent = message;
 }
 
-function isValid(input,) {
+function isValid(input) {
   const formData = input.parentElement;
   const error = formData.querySelector(".error-msg");
   formData.className = 'formData success';
@@ -180,16 +187,17 @@ function btnSelected(){
   radioBtns.forEach((radioBtn)=>{
     if (radioBtn.checked){
       cityselected = radioBtn.value;
-
     }
   })
   if(cityselected ==''){
     setErrorMessagefor(document.getElementById("location6"),errorMessage.cities)
-    return false
+    return false;
   }
 return true
 
 }
+
+
 
 
 
