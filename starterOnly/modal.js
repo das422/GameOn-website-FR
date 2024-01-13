@@ -57,9 +57,9 @@ const errorMessage = {
   name: "Veuillez entrer 2 caractères ou plus pour le champ du nom.",
   email: "Veuillez entrer une adresse e-mail valide",
   birthdate: "Vous devez entrer votre date de naissance.",
-  terms: "Vous devez vérifier que vous acceptez les termes et conditions.",
+  terms: "Veuillez accepter les conditions d'utilisation.",
   cities: "Vous devez choisir une option.",
-  quantity :"Vueillez entrer une valeur numerique comprise entre 0 et 99",
+  quantity :"Veuillez entrer une valeur numerique comprise entre 0 et 99",
 }
 
 // RegEx for date and email
@@ -139,24 +139,50 @@ function checkFields() {
 
 btnSelected()
 
+
+
   if(!btnSelected()){
 successField = false
   }
 
 
+  const terms = document.getElementById('checkbox1');
+  if(!terms.checked){
+    setErrorMessagefor(terms,errorMessage.terms)
+    successField = false;
+  } 
+
+  if(terms.checked){
+    isValid(terms)
+  }
+
+
+//   checkconditions()
+
+// if(!checkconditions()){
+//   successField = false
+//     }
+  
+
 console.log(successField)
-
-
-
-
-
-
+return successField
 
 
 }
 
 
+// function checkconditions(){
+// const terms = document.getElementById('checkbox1');
+// if(!terms.checked){
+//   setErrorMessagefor(terms, errorMessage.conditions)
+//   successField = false;
+// } 
+// successField = true
 
+// return true
+
+
+// }
 
 
 
@@ -171,13 +197,17 @@ function setErrorMessagefor(input, message) {
   error.textContent = message;
 }
 
-function isValid(input) {
+function isValid(input,) {
   const formData = input.parentElement;
   const error = formData.querySelector(".error-msg");
   formData.className = 'formData success';
   error.textContent = "";
 
 }
+
+
+
+
 
 
 function btnSelected(){
@@ -192,12 +222,11 @@ function btnSelected(){
   if(cityselected ==''){
     setErrorMessagefor(document.getElementById("location6"),errorMessage.cities)
     return false;
-  }
+  }isValid(cityselected)
 return true
 
+
 }
-
-
 
 
 
