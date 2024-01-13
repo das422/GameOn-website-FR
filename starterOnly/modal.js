@@ -69,10 +69,30 @@ function isEmail(email) {
 
 
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
-
+form.addEventListener("submit", (e) => {
+     
+      e.preventDefault(); 
+      // e.stopPropagation();
   checkFields();
+
+
+
+
+    // form.submit(e);
+
+
+  if (successField === true) {
+    const data = new FormData(e.target);
+    const entries = Object.fromEntries(data.entries());
+    console.table(entries);
+
+  } else (!successField); {
+
+    return successField = false;
+  }
+
+
+
 });
 
 
@@ -167,9 +187,26 @@ btnSelected()
 
 console.log(successField)
 
-return successField
+
+
+
+
+
+
+
+
+
+
 
 }
+
+
+
+
+
+
+
+
 
 
 // function checkconditions(){
