@@ -21,6 +21,10 @@ body {
   margin: 0 auto;
 }
 
+.wrapper {
+  margin: auto;
+}
+
 p {
   margin-bottom: 0;
   padding: 0.5vw;
@@ -39,10 +43,10 @@ img {
   margin: 3.5%;
 }
 .header-logo {
-    float: left;
+  float: left;
 }
 .main-navbar {
-    float: right;
+  float: right;
 }
 .topnav a {
   float: left;
@@ -73,7 +77,9 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav a {display: none;}
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
@@ -81,7 +87,9 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+  }
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
@@ -94,16 +102,16 @@ img {
   }
 }
 
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
+@media screen and (max-width: 540px) {
+  .topnav a {
+    display: none;
+  }
   .topnav a.icon {
     float: right;
     display: block;
     margin-top: -15px;
   }
-} 
+}
 
 main {
   font-size: 130%;
@@ -115,8 +123,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -192,7 +198,7 @@ main {
   margin: 15px auto;
 }
 
-.modal-success{
+.modal-success {
   display: none;
   position: fixed;
   z-index: 1;
@@ -204,7 +210,7 @@ main {
   background-color: rgba(26, 39, 156, 0.4);
 }
 
-.modal-success_content{
+.modal-success_content {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
@@ -216,10 +222,9 @@ main {
   position: relative;
   color: #fff;
   padding-top: 10px;
-
 }
 
-.success-text{
+.success-text {
   padding: 5rem;
 }
 
@@ -235,8 +240,6 @@ main {
   cursor: pointer;
   margin-block: 2rem;
 }
-
-
 
 label {
   font-family: var(--font-default);
@@ -525,11 +528,10 @@ input[data-error]::after {
   display: none;
 }
 
-.error-msg{
-margin-bottom: 0.25rem;
-font-size: 0.8rem;
-color: #FE142F;
-white-space: nowrap;
+.error-msg {
+  margin-bottom: 0.25rem;
+  font-size: 0.925rem;
+  color: #fe142f;
 }
 
 footer {
@@ -585,4 +587,3 @@ footer {
     opacity: 1;
   }
 }
-
