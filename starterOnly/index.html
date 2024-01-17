@@ -55,20 +55,16 @@
       <div class="content">
         <span class="close"></span>
         <div class="modal-body">
-          <form name="reserve" action="index.html" method="get" onsubmit="return validate(form);">
+          <form name="reserve" action="index.html" method="get" onsubmit="return validate();">
             <div class="formData">
               <label for="first">Prénom</label><br>
-              <input class="text-control" type="text" id="first" name="first" minlength="2" 
-              /><br>
-              <span class="error-msg"
-                id="errorfirst"></span>
+              <input class="text-control" type="text" id="first" name="first" minlength="2" /><br>
+              <span class="error-msg" id="errorfirst"></span>
             </div>
             <div class="formData">
               <label for="last">Nom</label><br>
-              <input class="text-control" type="text" id="last" name="last" minlength="2"
-              /><br>
-              <span class="error-msg"
-                id="errorlast"></span>
+              <input class="text-control" type="text" id="last" name="last" minlength="2" /><br>
+              <span class="error-msg" id="errorlast"></span>
             </div>
             <div class="formData">
               <label for="email">E-mail</label><br>
@@ -77,22 +73,18 @@
             </div>
             <div class="formData">
               <label for="birthdate">Date de naissance</label><br>
-              <input class="text-control" type="date" id="birthdate" name="birthdate" 
-              /><br>
-              <span class="error-msg"
-                id="errorbirth"></span>
+              <input class="text-control" type="date" id="birthdate" name="birthdate" /><br>
+              <span class="error-msg" id="errorbirth"></span>
             </div>
             <div class="formData">
               <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
               <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
-              <span
-                class="error-msg" id="errorqte"></span>
+              <span class="error-msg" id="errorqte"></span>
             </div>
             <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
             <div class="formData">
-             
-              <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" 
-              />
+
+              <input class="checkbox-input" type="radio" id="location1" name="location" value="New York" />
               <label class="checkbox-label" for="location1">
                 <span class="checkbox-icon"></span>
                 New York</label>
@@ -125,8 +117,8 @@
                 <span class="checkbox-icon"></span>
                 J'ai lu et accepté les conditions d'utilisation.
               </label>
-          
-              
+
+
               <br>
               <span class="error-msg" id="errortermscondition"></span>
               <input class="checkbox-input" type="checkbox" id="checkbox2" />
@@ -134,15 +126,27 @@
                 <span class="checkbox-icon"></span>
                 Je souhaite être prévenu des prochains évènements.
               </label>
-              
+
               <br>
             </div>
-            <input class="btn-submit" type="submit" id="button" value="C'est parti" />
+            <input class="btn btn-submit" type="submit" id="button" value="C'est parti" />
           </form>
+
         </div>
       </div>
     </div>
+    <div class="modal-success">
+      
+      <div class="modal-success_content">
+        <span class="close"></span>
+        <p>merci de votre participation!!</p>
+        <button class=" btn btn-success">
+          Fermer
+        </button>
+      </div>
+    </div>
   </main>
+
   <footer>
     <p class="copyrights">
       Copyright 2014 - 2022, GameOn Inc.
