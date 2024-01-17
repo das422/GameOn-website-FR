@@ -49,6 +49,7 @@ const errorMessage = {
   name: "Veuillez entrer 2 caractères ou plus pour le champ du nom.",
   email: "Veuillez entrer une adresse e-mail valide",
   birthdate: "Vous devez entrer votre date de naissance.",
+  birthdateAge: "Vous devez avoir 18 ans pour pouvoir vous inscrire",
   terms: "Veuillez accepter les conditions d'utilisation.",
   cities: "Vous devez choisir une option.",
   quantity: "Veuillez entrer une valeur numerique comprise entre 0 et 99",
@@ -113,28 +114,18 @@ function validate(e) {
   }
 
   // Birthday check
-  // let DOB = Date.now >= 12;
-  // if (birthDateValue <= DOB && birthDateValue =="") {
-
-  //   showErrorMessage(birthDate, errorMessage.birthdate);
-  //   return (successField = false);
-  // } else {
-  //   hideErrorMessage(birthDate);
-  // }
-
   const birthdate = new Date(birthDateValue);
   let difference = Date.now() - birthdate.getTime();
   difference = new Date(difference);
   const userAge = difference.getFullYear() - 1970;
-
   const currentYear = new Date().getFullYear();
   const birthYear = birthdate.getFullYear();
 
-  if (
-    birthYear < currentYear - 100 ||
-    userAge < 18
-  ) {
+  if (birthDateValue == "") {
     showErrorMessage(birthDate, errorMessage.birthdate);
+    return (successField = false);
+  } else if (birthYear < currentYear - 100 || userAge < 18) {
+    showErrorMessage(birthDate, errorMessage.birthdateAge);
     return (successField = false);
   } else {
     hideErrorMessage(birthDate);
@@ -182,27 +173,6 @@ function validate(e) {
   console.log(successField);
 }
 
-// function btnSelected() {
-//   const radioBtns = document.querySelectorAll('input[name="location"]');
-//   let cityselected = "";
-//   radioBtns.forEach((radioBtn) => {
-//     if (radioBtn.checked) {
-//       cityselected = radioBtn.value;
-//     }
-//   });
-//   if (cityselected == "") {
-//     showErrorMessage(
-//       document.getElementById("location6"),
-//       errorMessage.cities
-//     );
-//     return (successField = false);
-//   } else {
-//     hideErrorMessage(document.getElementById("location6"));
-//   }
-// }
-
-// let successField = true;
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -215,13 +185,9 @@ form.addEventListener("submit", (e) => {
     modalbg.style.display = "none";
     modalSuccess.style.display = "block";
     form.reset();
-  } else !successField;
-  {
-    successField = false;
   }
 });
+
 document
   .querySelector(".btn-success")
   .addEventListener("click", () => (modalSuccess.style.display = "none"));
-
-
