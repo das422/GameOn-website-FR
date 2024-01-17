@@ -63,6 +63,12 @@ function isEmail(email) {
 }
 
 
+
+
+
+
+
+
 let successField = true;
 
 form.addEventListener("submit", (e) => {
@@ -72,7 +78,7 @@ form.addEventListener("submit", (e) => {
 
 
 
-  if ((successField ===true)) {
+  if ((successField === true)) {
     const data = new FormData(e.target);
     const entries = Object.fromEntries(data.entries());
     console.table(entries);
@@ -83,13 +89,10 @@ form.addEventListener("submit", (e) => {
 
   } else (!successField);
   {
-    return successField = false;
+successField = false;
   }
+  
 });
-document.querySelector('.btn-success').addEventListener('click', ()=> modalSuccess.style.display ='none');
-
-
-
 
 
 function validate(e) {
@@ -104,7 +107,7 @@ function validate(e) {
   // firstname check
   if (firstnameValue.toString().length < 2 && firstnameValue === "") {
     setErrorMessagefor(firstname, errorMessage.name);
-    successField = false;
+    return successField = false;
   } else {
     isValid(firstname);
   }
@@ -112,7 +115,7 @@ function validate(e) {
   // lastname check
   if (lastnameValue.toString().length < 2) {
     setErrorMessagefor(lastname, errorMessage.name);
-    successField = false;
+    return successField = false;
   } else {
     isValid(lastname);
   }
@@ -120,10 +123,10 @@ function validate(e) {
   // email check
   if (emailValue === "") {
     setErrorMessagefor(eMail, errorMessage.email);
-    successField = false;
+    return successField = false;
   } else if (!isEmail(emailValue)) {
     setErrorMessagefor(eMail, errorMessage.email);
-    successField = false;
+    return successField = false;
   } else {
     isValid(eMail);
   }
@@ -131,7 +134,7 @@ function validate(e) {
   // Birthday check
   if (birthDateValue == "") {
     setErrorMessagefor(birthDate, errorMessage.birthdate);
-    successField = false;
+    return successField = false;
   } else {
     isValid(birthDate);
   }
@@ -143,7 +146,7 @@ function validate(e) {
     quantitycompetitionValue === ""
   ) {
     setErrorMessagefor(quantitycompetition, errorMessage.quantity);
-    successField = false;
+    return successField = false;
   } else {
     isValid(quantitycompetition);
   }
@@ -153,18 +156,18 @@ function validate(e) {
   const terms = document.getElementById("checkbox1");
   if (!terms.checked) {
     setErrorMessagefor(terms, errorMessage.terms);
-    successField = false;
+    return successField = false;
   }
 
   if (terms.checked) {
     isValid(terms);
-  }
+  }successField = true;
 
-
-
-  return successField = true;
-}
   console.log(successField);
+
+
+}
+
 
 // error and succes message function
 function setErrorMessagefor(input, message) {
@@ -195,7 +198,7 @@ function btnSelected() {
       document.getElementById("location6"),
       errorMessage.cities
     );
-    successField = false;
+    return successField = false;
   } else {
     isValid(document.getElementById("location6"));
   }
@@ -203,5 +206,4 @@ function btnSelected() {
 }
 
 
-
-
+document.querySelector('.btn-success').addEventListener('click', ()=> modalSuccess.style.display ='none');
