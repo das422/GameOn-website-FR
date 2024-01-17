@@ -69,10 +69,30 @@ function isEmail(email) {
 
 
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
-
+form.addEventListener("submit", (e) => {
+     
+      e.preventDefault(); 
+      // e.stopPropagation();
   checkFields();
+
+
+
+
+    // form.submit(e);
+
+
+  if (successField === true) {
+    const data = new FormData(e.target);
+    const entries = Object.fromEntries(data.entries());
+    console.table(entries);
+
+  } else (!successField); {
+
+    return successField = false;
+  }
+
+
+
 });
 
 
@@ -141,9 +161,10 @@ btnSelected()
 
 
 
-  if(!btnSelected()){
-successField = false
-  }
+//   if(!btnSelected()){
+// successField = false
+//   }
+
 
 
   const terms = document.getElementById('checkbox1');
@@ -165,10 +186,27 @@ successField = false
   
 
 console.log(successField)
-return successField
+
+
+
+
+
+
+
+
+
+
 
 
 }
+
+
+
+
+
+
+
+
 
 
 // function checkconditions(){
@@ -210,6 +248,9 @@ function isValid(input,) {
 
 
 
+
+
+
 function btnSelected(){
 
   const  radioBtns= document.querySelectorAll('input[name="location"]');
@@ -217,14 +258,21 @@ function btnSelected(){
   radioBtns.forEach((radioBtn)=>{
     if (radioBtn.checked){
       cityselected = radioBtn.value;
+
     }
   })
   if(cityselected ==''){
     setErrorMessagefor(document.getElementById("location6"),errorMessage.cities)
-    return false;
-  }isValid(cityselected)
-return true
+    successField = false;
+    
+  } else{
+    isValid(document.getElementById("location6"))
+  }
+  successField = true;
 
+  
 
 }
+
+
 
