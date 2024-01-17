@@ -79,7 +79,7 @@ function isEmail(email) {
 
 let successField = true;
 
-function validate(e) {
+function validate() {
   const firstnameValue = firstname.value.trim();
   const lastnameValue = lastname.value.trim();
   const emailValue = eMail.value.trim();
@@ -143,8 +143,7 @@ function validate(e) {
     hideErrorMessage(quantitycompetition);
   }
 
-  // btnSelected();
-
+  // city check
   const radioBtns = document.querySelectorAll('input[name="location"]');
   let cityselected = "";
   radioBtns.forEach((radioBtn) => {
@@ -159,6 +158,7 @@ function validate(e) {
     hideErrorMessage(document.getElementById("location6"));
   }
 
+  // terms check
   const terms = document.getElementById("checkbox1");
   if (!terms.checked) {
     showErrorMessage(terms, errorMessage.terms);
@@ -173,10 +173,11 @@ function validate(e) {
   console.log(successField);
 }
 
+//form submission
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  validate(e);
+  validate(form);
 
   if (successField === true) {
     const data = new FormData(e.target);
@@ -188,6 +189,7 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+// close modal Success
 document
   .querySelector(".btn-success")
   .addEventListener("click", () => (modalSuccess.style.display = "none"));
