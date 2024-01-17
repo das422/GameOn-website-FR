@@ -162,22 +162,23 @@ function validate() {
   const terms = document.getElementById("checkbox1");
   if (!terms.checked) {
     showErrorMessage(terms, errorMessage.terms);
-    return false;
+    return (successField = false);
   }
 
   if (terms.checked) {
     hideErrorMessage(terms);
   }
-  successField = true;
-
   console.log(successField);
-}
+  return successField = true;
 
+
+}
+  
 //form submission
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  validate(form);
+  validate(e);
 
   if (successField === true) {
     const data = new FormData(e.target);
