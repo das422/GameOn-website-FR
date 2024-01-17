@@ -44,7 +44,6 @@ const loc4 = document.getElementById("location4");
 const loc5 = document.getElementById("location5");
 const loc6 = document.getElementById("location6");
 
-
 // error message for required fields
 const errorMessage = {
   name: "Veuillez entrer 2 caractères ou plus pour le champ du nom.",
@@ -64,50 +63,17 @@ function isEmail(email) {
 
 
 
-
-
-
-
-
-let successField = true;
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  validate(e);
-
-
-
-  if ((successField === true)) {
-    const data = new FormData(e.target);
-    const entries = Object.fromEntries(data.entries());
-    console.table(entries);
-    modalbg.style.display ='none';
-    modalSuccess.style.display ='block';
-    form.reset();
-
-
-  } else (!successField);
-  {
-successField = false;
-  }
-  
-});
-
-
-function validate(e) {
+function validate(_e) {
   const firstnameValue = firstname.value.trim();
   const lastnameValue = lastname.value.trim();
   const emailValue = eMail.value.trim();
   const birthDateValue = birthDate.value.trim();
   const quantitycompetitionValue = quantitycompetition.value.trim();
 
-
-
   // firstname check
   if (firstnameValue.toString().length < 2 && firstnameValue === "") {
     setErrorMessagefor(firstname, errorMessage.name);
-    return successField = false;
+    return (successField = false);
   } else {
     isValid(firstname);
   }
@@ -115,7 +81,7 @@ function validate(e) {
   // lastname check
   if (lastnameValue.toString().length < 2) {
     setErrorMessagefor(lastname, errorMessage.name);
-    return successField = false;
+    return (successField = false);
   } else {
     isValid(lastname);
   }
@@ -123,10 +89,10 @@ function validate(e) {
   // email check
   if (emailValue === "") {
     setErrorMessagefor(eMail, errorMessage.email);
-    return successField = false;
+    return (successField = false);
   } else if (!isEmail(emailValue)) {
     setErrorMessagefor(eMail, errorMessage.email);
-    return successField = false;
+    return (successField = false);
   } else {
     isValid(eMail);
   }
@@ -134,7 +100,7 @@ function validate(e) {
   // Birthday check
   if (birthDateValue == "") {
     setErrorMessagefor(birthDate, errorMessage.birthdate);
-    return successField = false;
+    return (successField = false);
   } else {
     isValid(birthDate);
   }
@@ -146,7 +112,7 @@ function validate(e) {
     quantitycompetitionValue === ""
   ) {
     setErrorMessagefor(quantitycompetition, errorMessage.quantity);
-    return successField = false;
+    return (successField = false);
   } else {
     isValid(quantitycompetition);
   }
@@ -156,18 +122,16 @@ function validate(e) {
   const terms = document.getElementById("checkbox1");
   if (!terms.checked) {
     setErrorMessagefor(terms, errorMessage.terms);
-    return successField = false;
+    return (successField = false);
   }
 
   if (terms.checked) {
     isValid(terms);
-  }successField = true;
+  }
+  successField = true;
 
   console.log(successField);
-
-
 }
-
 
 // error and succes message function
 function setErrorMessagefor(input, message) {
@@ -198,12 +162,32 @@ function btnSelected() {
       document.getElementById("location6"),
       errorMessage.cities
     );
-    return successField = false;
+    return (successField = false);
   } else {
     isValid(document.getElementById("location6"));
   }
-
 }
 
 
-document.querySelector('.btn-success').addEventListener('click', ()=> modalSuccess.style.display ='none');
+let successField = true;
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  validate(e);
+
+  if (successField === true) {
+    const data = new FormData(e.target);
+    const entries = Object.fromEntries(data.entries());
+    console.table(entries);
+    modalbg.style.display = "none";
+    modalSuccess.style.display = "block";
+    form.reset();
+  } else !successField;
+  {
+    successField = false;
+  }
+});
+document
+  .querySelector(".btn-success")
+  .addEventListener("click", () => (modalSuccess.style.display = "none"));
