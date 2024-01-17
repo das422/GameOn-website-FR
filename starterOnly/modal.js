@@ -54,6 +54,21 @@ const errorMessage = {
   quantity: "Veuillez entrer une valeur numerique comprise entre 0 et 99",
 };
 
+// error and succes message function
+function showErrorMessage(input, message) {
+  const formData = input.parentElement;
+  const error = formData.querySelector(".error-msg");
+
+  formData.className = "formData error";
+  error.textContent = message;
+}
+
+function hideErrorMessage(input) {
+  const formData = input.parentElement;
+  const error = formData.querySelector(".error-msg");
+  formData.className = "formData success";
+  error.textContent = "";
+}
 // RegEx for date and email
 function isEmail(email) {
   return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -61,9 +76,9 @@ function isEmail(email) {
   );
 }
 
+let successField = true;
 
-
-function validate(_e) {
+function validate(e) {
   const firstnameValue = firstname.value.trim();
   const lastnameValue = lastname.value.trim();
   const emailValue = eMail.value.trim();
@@ -72,37 +87,57 @@ function validate(_e) {
 
   // firstname check
   if (firstnameValue.toString().length < 2 && firstnameValue === "") {
-    setErrorMessagefor(firstname, errorMessage.name);
+    showErrorMessage(firstname, errorMessage.name);
     return (successField = false);
   } else {
-    isValid(firstname);
+    hideErrorMessage(firstname);
   }
 
   // lastname check
   if (lastnameValue.toString().length < 2) {
-    setErrorMessagefor(lastname, errorMessage.name);
+    showErrorMessage(lastname, errorMessage.name);
     return (successField = false);
   } else {
-    isValid(lastname);
+    hideErrorMessage(lastname);
   }
 
   // email check
   if (emailValue === "") {
-    setErrorMessagefor(eMail, errorMessage.email);
+    showErrorMessage(eMail, errorMessage.email);
     return (successField = false);
   } else if (!isEmail(emailValue)) {
-    setErrorMessagefor(eMail, errorMessage.email);
+    showErrorMessage(eMail, errorMessage.email);
     return (successField = false);
   } else {
-    isValid(eMail);
+    hideErrorMessage(eMail);
   }
 
   // Birthday check
-  if (birthDateValue == "") {
-    setErrorMessagefor(birthDate, errorMessage.birthdate);
+  // let DOB = Date.now >= 12;
+  // if (birthDateValue <= DOB && birthDateValue =="") {
+
+  //   showErrorMessage(birthDate, errorMessage.birthdate);
+  //   return (successField = false);
+  // } else {
+  //   hideErrorMessage(birthDate);
+  // }
+
+  const birthdate = new Date(birthDateValue);
+  let difference = Date.now() - birthdate.getTime();
+  difference = new Date(difference);
+  const userAge = difference.getFullYear() - 1970;
+
+  const currentYear = new Date().getFullYear();
+  const birthYear = birthdate.getFullYear();
+
+  if (
+    birthYear < currentYear - 100 ||
+    userAge < 18
+  ) {
+    showErrorMessage(birthDate, errorMessage.birthdate);
     return (successField = false);
   } else {
-    isValid(birthDate);
+    hideErrorMessage(birthDate);
   }
 
   // quantityTournament check
@@ -111,45 +146,14 @@ function validate(_e) {
     quantitycompetitionValue.toString().length > 99 ||
     quantitycompetitionValue === ""
   ) {
-    setErrorMessagefor(quantitycompetition, errorMessage.quantity);
+    showErrorMessage(quantitycompetition, errorMessage.quantity);
     return (successField = false);
   } else {
-    isValid(quantitycompetition);
+    hideErrorMessage(quantitycompetition);
   }
 
-  btnSelected();
+  // btnSelected();
 
-  const terms = document.getElementById("checkbox1");
-  if (!terms.checked) {
-    setErrorMessagefor(terms, errorMessage.terms);
-    return (successField = false);
-  }
-
-  if (terms.checked) {
-    isValid(terms);
-  }
-  successField = true;
-
-  console.log(successField);
-}
-
-// error and succes message function
-function setErrorMessagefor(input, message) {
-  const formData = input.parentElement;
-  const error = formData.querySelector(".error-msg");
-
-  formData.className = "formData error";
-  error.textContent = message;
-}
-
-function isValid(input) {
-  const formData = input.parentElement;
-  const error = formData.querySelector(".error-msg");
-  formData.className = "formData success";
-  error.textContent = "";
-}
-
-function btnSelected() {
   const radioBtns = document.querySelectorAll('input[name="location"]');
   let cityselected = "";
   radioBtns.forEach((radioBtn) => {
@@ -158,18 +162,46 @@ function btnSelected() {
     }
   });
   if (cityselected == "") {
-    setErrorMessagefor(
-      document.getElementById("location6"),
-      errorMessage.cities
-    );
+    showErrorMessage(document.getElementById("location6"), errorMessage.cities);
     return (successField = false);
   } else {
-    isValid(document.getElementById("location6"));
+    hideErrorMessage(document.getElementById("location6"));
   }
+
+  const terms = document.getElementById("checkbox1");
+  if (!terms.checked) {
+    showErrorMessage(terms, errorMessage.terms);
+    return false;
+  }
+
+  if (terms.checked) {
+    hideErrorMessage(terms);
+  }
+  successField = true;
+
+  console.log(successField);
 }
 
+// function btnSelected() {
+//   const radioBtns = document.querySelectorAll('input[name="location"]');
+//   let cityselected = "";
+//   radioBtns.forEach((radioBtn) => {
+//     if (radioBtn.checked) {
+//       cityselected = radioBtn.value;
+//     }
+//   });
+//   if (cityselected == "") {
+//     showErrorMessage(
+//       document.getElementById("location6"),
+//       errorMessage.cities
+//     );
+//     return (successField = false);
+//   } else {
+//     hideErrorMessage(document.getElementById("location6"));
+//   }
+// }
 
-let successField = true;
+// let successField = true;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -191,3 +223,5 @@ form.addEventListener("submit", (e) => {
 document
   .querySelector(".btn-success")
   .addEventListener("click", () => (modalSuccess.style.display = "none"));
+
+
