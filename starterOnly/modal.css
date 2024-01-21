@@ -46,9 +46,16 @@ img {
   height: 100%; */
 }
 
+.logo-img{
+  width: min(89%, 300px);
+}
+
 .topnav {
   overflow: hidden;
+  display: flex;
   /* margin: 3.5%; */
+  margin: 0.8rem;
+  justify-content: space-between;
 }
 .header-logo {
   float: left;
@@ -62,7 +69,7 @@ img {
   color: #000000;
   text-align: center;
   padding: 12px 12px;
-  margin: 5px;
+  margin: 0.125rem;
   text-decoration: none;
   font-size: 20px;
   font-family: Roboto, sans-serif;
@@ -94,7 +101,7 @@ img {
   }
 }
 
-/* @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .topnav.responsive {
     position: relative;
   }
@@ -108,9 +115,9 @@ img {
     display: block;
     text-align: left;
   }
-} */
+}
 
-@media screen and (max-width: 1134px) {
+@media screen and (max-width: 1030px) {
   .topnav a {
     display: none;
   }

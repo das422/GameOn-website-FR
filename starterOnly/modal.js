@@ -1,10 +1,20 @@
 function editNav() {
-  var x = document.getElementById("myTopnav");
+  let x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
   } else {
     x.className = "topnav";
   }
+}
+
+let header = document.querySelector(".main-navbar");
+let btns = header.getElementsByClassName("nav-link");
+for (let i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function() {
+  let current = document.getElementsByClassName("active");
+  current[0].className = current[0].className.replace("active", "");
+  this.className += " active";
+  });
 }
 
 // DOM Elements
