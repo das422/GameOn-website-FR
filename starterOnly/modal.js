@@ -78,31 +78,23 @@ function isEmail(email) {
 }
 
 let successField = true;
-
-
 //form submission
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   validate();
 
-  if (successField === true) {
+  if (successField) {
     const data = new FormData(e.target);
     const entries = Object.fromEntries(data.entries());
     console.table(entries);
     modalbg.style.display = "none";
     modalSuccess.style.display = "block";
     form.reset();
-  } else{
-    return successField = successField = false;
+  } else {
+    return (successField = false);
   }
 });
-
-// close modal Success
-document
-  .querySelector(".btn-success")
-  .addEventListener("click", () => (modalSuccess.style.display = "none"));
-
 
 function validate() {
   const firstnameValue = firstname.value.trim();
@@ -114,7 +106,7 @@ function validate() {
   // firstname check
   if (firstnameValue.toString().length < 2 && firstnameValue === "") {
     showErrorMessage(firstname, errorMessage.name);
-    return successField = false;
+    return (successField = false);
   } else {
     hideErrorMessage(firstname);
   }
@@ -122,7 +114,7 @@ function validate() {
   // lastname check
   if (lastnameValue.toString().length < 2) {
     showErrorMessage(lastname, errorMessage.name);
-    return successField = false;
+    return (successField = false);
   } else {
     hideErrorMessage(lastname);
   }
@@ -130,10 +122,10 @@ function validate() {
   // email check
   if (emailValue === "") {
     showErrorMessage(eMail, errorMessage.email);
-    return successField = false;
+    return (successField = false);
   } else if (!isEmail(emailValue)) {
     showErrorMessage(eMail, errorMessage.email);
-    return successField = false;
+    return (successField = false);
   } else {
     hideErrorMessage(eMail);
   }
@@ -148,10 +140,10 @@ function validate() {
 
   if (birthDateValue == "") {
     showErrorMessage(birthDate, errorMessage.birthdate);
-    return successField = false;
+    return (successField = false);
   } else if (birthYear < currentYear - 100 || userAge < 18) {
     showErrorMessage(birthDate, errorMessage.birthdateAge);
-    return successField = false;
+    return (successField = false);
   } else {
     hideErrorMessage(birthDate);
   }
@@ -163,7 +155,7 @@ function validate() {
     quantitycompetitionValue === ""
   ) {
     showErrorMessage(quantitycompetition, errorMessage.quantity);
-    return successField = false;
+    return (successField = false);
   } else {
     hideErrorMessage(quantitycompetition);
   }
@@ -178,7 +170,7 @@ function validate() {
   });
   if (cityselected == "") {
     showErrorMessage(document.getElementById("location6"), errorMessage.cities);
-    return successField = false;
+    return (successField = false);
   } else {
     hideErrorMessage(document.getElementById("location6"));
   }
@@ -187,15 +179,18 @@ function validate() {
   const terms = document.getElementById("checkbox1");
   if (!terms.checked) {
     showErrorMessage(terms, errorMessage.terms);
-    return successField = false;
+    return (successField = false);
   }
 
   if (terms.checked) {
     hideErrorMessage(terms);
   }
-  
-  return successField = true;
-console.log(successField);
+  console.log(successField);
 
+  return (successField = true);
 }
-  
+
+// close modal Success
+document
+  .querySelector(".btn-success")
+  .addEventListener("click", () => (modalSuccess.style.display = "none"));
