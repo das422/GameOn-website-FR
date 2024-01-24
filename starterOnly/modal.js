@@ -7,6 +7,7 @@ function editNav() {
   }
 }
 
+// show active link in navbar
 let header = document.querySelector(".main-navbar");
 let btns = header.getElementsByClassName("nav-link");
 for (let i = 0; i < btns.length; i++) {
@@ -25,20 +26,6 @@ const close = document.querySelector(".close");
 const btnSubmit = document.querySelector(".btn-submit");
 const modalSuccess = document.querySelector(".modal-success");
 
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
-}
-
-// close modal form
-close.addEventListener("click", closeModal);
-function closeModal() {
-  modalbg.style.display = "none";
-}
-
 // Form entries implementation
 const form = document.querySelector("form");
 const submit = document.getElementById("submit");
@@ -53,6 +40,20 @@ const loc3 = document.getElementById("location3");
 const loc4 = document.getElementById("location4");
 const loc5 = document.getElementById("location5");
 const loc6 = document.getElementById("location6");
+
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// launch modal form
+function launchModal() {
+  modalbg.style.display = "block";
+}
+
+// close modal form
+close.addEventListener("click", closeModal);
+function closeModal() {
+  modalbg.style.display = "none";
+}
 
 // error message for required fields
 const errorMessage = {
@@ -107,13 +108,28 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+// close modal Success
+document
+  .querySelector(".btn-success")
+  .addEventListener("click", () => (modalSuccess.style.display = "none"));
+
+//function to verify if all fields are correct before submit
 function validate() {
   const firstnameValue = firstname.value.trim();
   const lastnameValue = lastname.value.trim();
   const emailValue = eMail.value.trim();
   const birthDateValue = birthDate.value.trim();
   const quantitycompetitionValue = quantitycompetition.value.trim();
+  const birthdate = new Date(birthDateValue);
+  let difference = Date.now() - birthdate.getTime();
+  difference = new Date(difference);
+  const userAge = difference.getFullYear() - 1970;
+  const currentYear = new Date().getFullYear();
+  const birthYear = birthdate.getFullYear();
+  const radioBtns = document.querySelectorAll('input[name="location"]');
+  const terms = document.getElementById("checkbox1");
 
+  //conditions to check for all required fields
   // firstname check
   if (firstnameValue.toString().length < 2 && firstnameValue === "") {
     showErrorMessage(firstname, errorMessage.name);
@@ -121,7 +137,6 @@ function validate() {
   } else {
     hideErrorMessage(firstname);
   }
-
   // lastname check
   if (lastnameValue.toString().length < 2) {
     showErrorMessage(lastname, errorMessage.name);
@@ -129,7 +144,6 @@ function validate() {
   } else {
     hideErrorMessage(lastname);
   }
-
   // email check
   if (emailValue === "") {
     showErrorMessage(eMail, errorMessage.email);
@@ -140,15 +154,7 @@ function validate() {
   } else {
     hideErrorMessage(eMail);
   }
-
   // Birthday check
-  const birthdate = new Date(birthDateValue);
-  let difference = Date.now() - birthdate.getTime();
-  difference = new Date(difference);
-  const userAge = difference.getFullYear() - 1970;
-  const currentYear = new Date().getFullYear();
-  const birthYear = birthdate.getFullYear();
-
   if (birthDateValue == "") {
     showErrorMessage(birthDate, errorMessage.birthdate);
     return (successField = false);
@@ -158,7 +164,6 @@ function validate() {
   } else {
     hideErrorMessage(birthDate);
   }
-
   // quantityTournament check
   if (
     quantitycompetitionValue.toString().length < 0 ||
@@ -170,9 +175,7 @@ function validate() {
   } else {
     hideErrorMessage(quantitycompetition);
   }
-
   // city check
-  const radioBtns = document.querySelectorAll('input[name="location"]');
   let cityselected = "";
   radioBtns.forEach((radioBtn) => {
     if (radioBtn.checked) {
@@ -185,23 +188,13 @@ function validate() {
   } else {
     hideErrorMessage(document.getElementById("location6"));
   }
-
   // terms check
-  const terms = document.getElementById("checkbox1");
   if (!terms.checked) {
     showErrorMessage(terms, errorMessage.terms);
     return (successField = false);
   }
-
   if (terms.checked) {
     hideErrorMessage(terms);
   }
-  console.log(successField);
-
   return (successField = true);
 }
-
-// close modal Success
-document
-  .querySelector(".btn-success")
-  .addEventListener("click", () => (modalSuccess.style.display = "none"));
