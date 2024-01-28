@@ -55,22 +55,10 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-// error message for required fields
-const errorMessage = {
-  name: "Veuillez entrer 2 caractères ou plus pour le champ du nom.",
-  email: "Veuillez entrer une adresse e-mail valide",
-  birthdate: "Vous devez entrer votre date de naissance.",
-  birthdateAge: "Vous devez avoir 18 ans pour pouvoir vous inscrire",
-  terms: "Veuillez accepter les conditions d'utilisation.",
-  cities: "Vous devez choisir une option.",
-  quantity: "Veuillez entrer une valeur numerique comprise entre 0 et 99",
-};
-
 // error and succes message function
 function showErrorMessage(input, message) {
   const formData = input.parentElement;
   const error = formData.querySelector(".error-msg");
-
   formData.className = "formData error";
   error.textContent = message;
 }
@@ -81,101 +69,78 @@ function hideErrorMessage(input) {
   formData.className = "formData success";
   error.textContent = "";
 }
-// RegEx for date and email
-function isEmail(email) {
-  return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-    email
-  );
-}
 
-let successField = true;
+// error message displayed when error occurs
+const errorMessage = {
+  name: "Veuillez entrer 2 caractères ou plus pour le champ du nom.",
+  email: "Veuillez entrer une adresse e-mail valide",
+  birthdate: "Vous devez entrer votre date de naissance.",
+  birthdateAge: "Vous devez avoir 18 ans pour pouvoir vous inscrire",
+  terms: "Veuillez accepter les conditions d'utilisation.",
+  cities: "Vous devez choisir une option.",
+  quantity: "Veuillez entrer une valeur numerique comprise entre 0 et 99",
+};
 
-//form submission
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  validate();
-
-  if (successField) {
-    const data = new FormData(e.target);
-    const entries = Object.fromEntries(data.entries());
-    console.table(entries);
-    modalbg.style.display = "none";
-    modalSuccess.style.display = "block";
-    form.reset();
-  } else {
-    return (successField = false);
+//event listener on the form inputs to perform instant feedback on each fields
+form.addEventListener("input", (e) => {
+  switch (e.target.name) {
+    case "first":
+      CheckUserFirst();
+      break;
+    case "last":
+      CheckUserLast();
+      break;
+    case "email":
+      CheckEmail();
+      break;
+    case "birthdate":
+      CheckBirthdate();
+      break;
+    case "quantity":
+      CheckTournament();
+      break;
+    case "terms":
+      CheckTerms();
+      break;
+    case "location":
+      CheckCity();
+      break;
+    default:
+      null;
   }
 });
 
-// close modal Success
-document
-  .querySelector(".btn-success")
-  .addEventListener("click", () => (modalSuccess.style.display = "none"));
-
-//function to verify if all fields are correct before submit
-function validate() {
+// function for each field to check their value
+// firstname check
+function CheckUserFirst() {
+  let successField = false;
   const firstnameValue = firstname.value.trim();
-  const lastnameValue = lastname.value.trim();
-  const emailValue = eMail.value.trim();
-  const birthDateValue = birthDate.value.trim();
-  const quantitycompetitionValue = quantitycompetition.value.trim();
-  const birthdate = new Date(birthDateValue);
-  let difference = Date.now() - birthdate.getTime();
-  difference = new Date(difference);
-  const userAge = difference.getFullYear() - 1970;
-  const currentYear = new Date().getFullYear();
-  const birthYear = birthdate.getFullYear();
-  const radioBtns = document.querySelectorAll('input[name="location"]');
-  const terms = document.getElementById("checkbox1");
-
-  //conditions to check for all required fields
-  // firstname check
-  if (firstnameValue.toString().length < 2 && firstnameValue === "") {
+  if (firstnameValue.length < 2 && firstnameValue === "") {
     showErrorMessage(firstname, errorMessage.name);
-    return (successField = false);
   } else {
     hideErrorMessage(firstname);
+    successField = true;
   }
-  // lastname check
-  if (lastnameValue.toString().length < 2) {
+  return successField;
+}
+
+// lastname check
+function CheckUserLast() {
+  let successField = false;
+  const lastnameValue = lastname.value.trim();
+  if (lastnameValue.length < 2) {
     showErrorMessage(lastname, errorMessage.name);
-    return (successField = false);
   } else {
     hideErrorMessage(lastname);
+    successField = true;
   }
-  // email check
-  if (emailValue === "") {
-    showErrorMessage(eMail, errorMessage.email);
-    return (successField = false);
-  } else if (!isEmail(emailValue)) {
-    showErrorMessage(eMail, errorMessage.email);
-    return (successField = false);
-  } else {
-    hideErrorMessage(eMail);
-  }
-  // Birthday check
-  if (birthDateValue == "") {
-    showErrorMessage(birthDate, errorMessage.birthdate);
-    return (successField = false);
-  } else if (birthYear < currentYear - 100 || userAge < 18) {
-    showErrorMessage(birthDate, errorMessage.birthdateAge);
-    return (successField = false);
-  } else {
-    hideErrorMessage(birthDate);
-  }
-  // quantityTournament check
-  if (
-    quantitycompetitionValue.toString().length < 0 ||
-    quantitycompetitionValue.toString().length > 99 ||
-    quantitycompetitionValue === ""
-  ) {
-    showErrorMessage(quantitycompetition, errorMessage.quantity);
-    return (successField = false);
-  } else {
-    hideErrorMessage(quantitycompetition);
-  }
-  // city check
+  return successField;
+}
+
+// location check
+function CheckCity() {
+  let successField = false;
+  const radioBtns = document.querySelectorAll('input[name="location"]');
   let cityselected = "";
   radioBtns.forEach((radioBtn) => {
     if (radioBtn.checked) {
@@ -184,17 +149,120 @@ function validate() {
   });
   if (cityselected == "") {
     showErrorMessage(document.getElementById("location6"), errorMessage.cities);
-    return (successField = false);
   } else {
     hideErrorMessage(document.getElementById("location6"));
+    successField = true;
   }
-  // terms check
+  return successField;
+}
+
+// RegEx email
+function isEmail(email) {
+  return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    email
+  );
+}
+
+function CheckEmail() {
+  let successField = false;
+  const emailValue = eMail.value.trim();
+  if (emailValue === "") {
+    showErrorMessage(eMail, errorMessage.email);
+  } else if (!isEmail(emailValue)) {
+    showErrorMessage(eMail, errorMessage.email);
+  } else {
+    hideErrorMessage(eMail);
+    successField = true;
+  }
+  return successField;
+}
+
+// birthdate check
+function CheckBirthdate() {
+  let successField = false;
+  const birthDateValue = birthDate.value.trim();
+  const birthdate = new Date(birthDateValue);
+  let difference = Date.now() - birthdate.getTime();
+  difference = new Date(difference);
+  const userAge = difference.getFullYear() - 1970;
+  const currentYear = new Date().getFullYear();
+  const birthYear = birthdate.getFullYear();
+
+  if (birthDateValue == "") {
+    showErrorMessage(birthDate, errorMessage.birthdate);
+  } else if (birthYear < currentYear - 100 || userAge < 18) {
+    showErrorMessage(birthDate, errorMessage.birthdateAge);
+  } else {
+    hideErrorMessage(birthDate);
+    successField = true;
+  }
+  return successField;
+}
+
+// tournament check
+function CheckTournament() {
+  let successField = false;
+  const quantitycompetitionValue = quantitycompetition.value.trim();
+  if (
+    quantitycompetitionValue < 0 ||
+    quantitycompetitionValue > 99 ||
+    quantitycompetitionValue === ""
+  ) {
+    showErrorMessage(quantitycompetition, errorMessage.quantity);
+  } else {
+    hideErrorMessage(quantitycompetition);
+    successField = true;
+  }
+  return successField;
+}
+
+// terms and conditions check
+function CheckTerms() {
+  let successField = false;
+  const terms = document.getElementById("checkbox1");
   if (!terms.checked) {
     showErrorMessage(terms, errorMessage.terms);
-    return (successField = false);
   }
   if (terms.checked) {
     hideErrorMessage(terms);
+    successField = true;
   }
-  return (successField = true);
+  return successField;
 }
+
+// function to close modal form and display success modal after all fields have passed validation
+function validate() {
+  let isUserFirstValid = CheckUserFirst(),
+    isUserLastValid = CheckUserLast(),
+    isEmailValid = CheckEmail(),
+    isBirthdateValid = CheckBirthdate(),
+    isTournamentValid = CheckTournament();
+  isCityValid = CheckCity();
+  isTermsValid = CheckTerms();
+
+  let isFormValid =
+    isUserFirstValid &&
+    isUserLastValid &&
+    isEmailValid &&
+    isBirthdateValid &&
+    isTournamentValid &&
+    isCityValid &&
+    isTermsValid;
+
+  if (isFormValid) {
+    console.log(isFormValid);
+    modalbg.style.display = "none";
+    modalSuccess.style.display = "block";
+    form.reset();
+  }
+}
+
+//form submission
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+
+// close modal Success
+document
+  .querySelector(".btn-success")
+  .addEventListener("click", () => (modalSuccess.style.display = "none"));
